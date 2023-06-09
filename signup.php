@@ -6,7 +6,7 @@ if (isset($_POST['daftar'])) {
     $password = $_POST['passwd'];
 
 
-    $checkQuery = "SELECT * FROM user WHERE userName='$username'";
+    $checkQuery = "SELECT * FROM user WHERE username='$username'";
     $checkResult = $conn->query($checkQuery);
 
     if ($checkResult->num_rows > 0) {
@@ -15,7 +15,6 @@ if (isset($_POST['daftar'])) {
         echo  '</script>';
     } else {
         $insertQuery = "INSERT INTO user (username, passwd) VALUES ('$username', '$password')";
-
         if ($conn->query($insertQuery) === TRUE) {
             $_SESSION['daftar_success'] = true;
             header("Location: index.html");
