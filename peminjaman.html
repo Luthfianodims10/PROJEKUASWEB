@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    form {
+      max-width: 300px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr {
+      background-color: #97c5e1;
+    }
+  </style>
+
+  <title>Form Data Peminjaman Barang</title>
+</head>
+<body>
+  <h2>Form Data Peminjaman Barang</h2>
+
+  <form action="process.php" method="POST">
+    <label for="nama">Nama Peminjam:</label>
+    <input type="text" id="nama" name="nama" required>
+
+    <label for="barang">Barang yang Dipinjam:</label>
+    <input type="text" id="barang" name="barang" required>
+
+    <label for="jumlah">Jumlah Barang:</label>
+    <input type="number" id="jumlah" name="jumlah" required>
+
+    <label for="tanggal">Tanggal Peminjaman:</label>
+    <input type="date" id="tanggal" name="tanggal" required>
+
+    <input type="submit" name="submit" value="Pinjam">
+  </form>
+
+  <h2>Data Peminjaman Barang</h2>
+  <table id="data-barang">
+    <tr>
+      <th>Nama Peminjam</th>
+      <th>Barang</th>
+      <th>Jumlah</th>
+      <th>Tanggal Peminjaman</th>
+      <th>Aksi</th>
+    </tr>
+
+  </table>
+
+  <script>
+    // Fungsi untuk memperbarui tampilan data barang secara real time
+    function updateDataBarang() {
+      fetch('read.php')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('data-barang').innerHTML = data;
+        });
+    }
+
+    // Memanggil fungsi updateDataBarang untuk pertama kali
+    updateDataBarang();
+
+    // Memperbarui tampilan data barang setiap 5 detik
+    setInterval(updateDataBarang, 5000);
+  </script>
+</body>
+</html>
